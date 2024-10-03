@@ -1,0 +1,94 @@
+@import "colors.css";
+
+#waybar {
+  background-color: @black;
+  color: @white;
+  border-bottom: 2px solid @border;
+}
+
+button {
+  border: none;
+  border-radius: 0px;
+}
+
+
+#workspaces button {
+  padding: 0px 5px;
+  color: @white;
+  border-bottom: 2px solid @border_workspaces;
+}
+
+#workspaces button:hover {
+  background: rgba(127, 127, 127, 0.3);
+  border-bottom: 2px solid @border_selected;
+}
+
+#workspaces button.active {
+  background-color: rgba(0, 170, 170, 0.75);
+  border-color: @white;
+}
+
+#workspaces button.urgent {
+  color: @red;
+}
+
+#battery,
+#backlight,
+#cpu,
+#memory,
+#language,
+#network,
+#wireplumber,
+#clock {
+  margin: 0px 15px;
+}
+
+#battery.charging,
+#battery.plugged,
+#battery.full {
+  color: @green;
+}
+
+#battery {
+  color: @red;
+}
+
+#backlight {
+  color: @magenta;
+}
+
+#memory {
+  color: @blue;
+}
+
+#cpu {
+  color: @orange;
+}
+
+#language {
+  color: @cyan;
+}
+
+#network {
+  color: @purple;
+}
+
+#network.disconnected {
+  color: @red;
+}
+
+#wireplumber {
+  color: @yellow;
+}
+
+#wireplumber.muted {
+  color: @grey;
+}
+
+#clock {
+  color: @green_dark;
+}
+
+#tray {
+  border-bottom: 2px solid #7030af;
+}

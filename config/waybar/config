@@ -1,0 +1,64 @@
+{
+  "layer": "top",
+  "modules-left": [
+    "hyprland/workspaces",
+    "battery",
+    "backlight",
+    "memory",
+    "cpu"
+  ],
+  "modules-center": ["hyprland/window"],
+  "modules-right": [
+    "hyprland/language",
+    "network",
+    "wireplumber",
+    "clock",
+    "tray"
+  ],
+  "tray": {
+    "spacing": 5
+  },
+  "clock": {
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format": "{:%a %d-%m-%Y %H:%M}"
+  },
+  "cpu": {
+    "format": "{usage}% "
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "backlight": {
+    "format": "{percent}% {icon}",
+    "format-icons": ["", "", "", "", "", "", "", "", ""]
+  },
+  "battery": {
+    "states": {
+      "critical": 15
+    },
+    "format": "{capacity}% {icon}",
+    "format-charging": "{capacity}% ",
+    "format-plugged": "{capacity}% ",
+    "format-alt": "{time} {icon}",
+    "format-icons": ["", "", "", "", ""]
+  },
+  "network": {
+    "format": "{bandwidthDownBytes}% ",
+    "format-disconnected": "Disconnected ⚠"
+  },
+  "wireplumber": {
+    "format": "{volume}% {icon}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " ",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "default": ["", "", ""]
+    }
+  }
+}

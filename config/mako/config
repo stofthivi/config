@@ -1,0 +1,8 @@
+sort=+time
+default-timeout=10000
+ignore-timeout=1
+background-color=#96f0eac8
+border-radius=5
+border-color=#637675
+border-size=3
+text-color=#000000
