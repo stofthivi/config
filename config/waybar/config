@@ -5,7 +5,8 @@
     "battery",
     "backlight",
     "memory",
-    "cpu"
+    "cpu",
+    "idle_inhibitor"
   ],
   "modules-center": ["hyprland/window"],
   "modules-right": [
@@ -45,6 +46,13 @@
   "network": {
     "format": "{bandwidthDownBytes}% ",
     "format-disconnected": "Disconnected ⚠"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+       "activated": "",
+       "deactivated": ""
+     }
   },
   "wireplumber": {
     "format": "{volume}% {icon}",

@@ -1,10 +1,26 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "";
+        git-hooks.follows = "";
+      };
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        devshell.follows = "";
+        flake-compat.follows = "";
+        git-hooks.follows = "";
+        home-manager.follows = "";
+        nix-darwin.follows = "";
+        treefmt-nix.follows = "";
+      };
     };
   };
 
@@ -13,7 +29,8 @@
       self,
       nixpkgs,
       nixvim,
-      neovim-nightly-overlay
+      neovim-nightly-overlay,
+      zen-browser,
     }:
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
@@ -24,7 +41,8 @@
           (
             { pkgs, ... }:
             {
-              system.stateVersion = "24.11";
+              system.stateVersion = "25.05";
+              system.rebuild.enableNg = true;
 
               nix = {
                 settings.experimental-features = [
@@ -37,6 +55,7 @@
 
               boot = {
                 kernelPackages = pkgs.linuxPackages_latest;
+                kernelParams = [ "nowatchdog" ];
                 loader = {
                   timeout = 3;
                   systemd-boot = {
@@ -51,12 +70,8 @@
 
               time.timeZone = "Asia/Yekaterinburg";
 
-              systemd.network.wait-online.enable = false;
               networking = {
                 useDHCP = false;
-                dhcpcd.enable = false;
-                useNetworkd = true;
-                nftables.enable = true;
                 wireless = {
                   iwd = {
                     enable = true;
@@ -83,6 +98,7 @@
                 gvfs.enable = true;
                 hypridle.enable = true;
                 playerctld.enable = true;
+                resolved.enable = true;
               };
 
               users = {
@@ -94,12 +110,13 @@
               };
 
               fonts.packages = with pkgs; [
-                (nerdfonts.override { fonts = [ "Hack" ]; })
+                nerd-fonts.hack
                 font-awesome
+                noto-fonts
               ];
 
               programs = {
-                gnupg.agent.enable = true;
+                yazi.enable = true;
                 adb.enable = true;
                 git.enable = true;
                 waybar.enable = true;
@@ -109,7 +126,7 @@
                   loginShellInit = "test (tty) = /dev/tty1 ;and exec Hyprland";
                   shellAliases = {
                     x = "sudo";
-                    r = "ranger";
+                    r = "yazi";
                     p = "python";
                     dl = "yt-dlp -x -o '%(title)s.%(ext)s'";
                     dla = "yt-dlp -x --add-metadata -o '%(title)s.%(ext)s'";
@@ -150,6 +167,7 @@
                       settings.highlight.enable = true;
                       grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
                         nix
+                        python
                         hyprlang
                       ];
                     };
@@ -163,9 +181,11 @@
                 sessionVariables.NIXOS_OZONE_WL = "1";
                 systemPackages = with pkgs; [
                   # main programs
-                  (brave.override { vulkanSupport = true; })
+                  brave
+                  zen-browser.packages."${system}".default
                   telegram-desktop
-                  qbittorrent
+                  # qbittorrent
+                  qbittorrent-nox
                   (mpv.override { scripts = [ mpvScripts.mpris ]; })
                   bitwarden-desktop
                   ranger
@@ -184,11 +204,11 @@
                   p7zip
                   neofetch
                   yt-dlp
-                  wl-clipboard
-                  libnotify
+                  wl-clipboard-rs
                   pavucontrol
                   fuzzel
                   mako
+                  hyprsunset
                   hyprshade
                   hyprshot
                   brightnessctl
@@ -196,11 +216,9 @@
                   xdg-utils
                   # languages, programming utils
                   nixfmt-rfc-style
-                  gcc14
+                  # (python313.withPackages (p: with p; [ requests ]))
                   python313
-                  # games, emulators
-                  niri
-                  webcord
+                  rose-pine-cursor
                 ];
               };
             }

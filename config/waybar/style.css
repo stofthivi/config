@@ -32,10 +32,15 @@ button {
   color: @red;
 }
 
+#idle_inhibitor {
+  color: @grey2;
+}
+
 #battery,
 #backlight,
-#cpu,
 #memory,
+#cpu,
+#idle_inhibitor,
 #language,
 #network,
 #wireplumber,
@@ -43,14 +48,14 @@ button {
   margin: 0px 15px;
 }
 
+#battery {
+  color: @red;
+}
+
 #battery.charging,
 #battery.plugged,
 #battery.full {
   color: @green;
-}
-
-#battery {
-  color: @red;
 }
 
 #backlight {
@@ -63,6 +68,10 @@ button {
 
 #cpu {
   color: @orange;
+}
+
+#idle_inhibitor {
+  color: @grey2;
 }
 
 #language {
