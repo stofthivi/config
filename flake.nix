@@ -41,8 +41,13 @@
           (
             { pkgs, ... }:
             {
+              imports = [ (import ./nixvim.nix { inherit pkgs neovim-nightly-overlay; }) ];
               system.stateVersion = "25.05";
               system.rebuild.enableNg = true;
+
+              # services.userborn.enable = true;
+              # system.etc.overlay.enable = true;
+              boot.initrd.systemd.enable = true;
 
               nix = {
                 settings.experimental-features = [
@@ -99,6 +104,20 @@
                 hypridle.enable = true;
                 playerctld.enable = true;
                 resolved.enable = true;
+                zapret = {
+                  enable = true;
+                  whitelist = [
+                    "youtube.com"
+                    "googlevideo.com"
+                    "ytimg.com"
+                    "youtu.be"
+                  ];
+                  params = ["--dpi-desync=fake" "--dpi-desync-ttl=3" "--dpi-desync-autottl=2"];
+                  # params = [ "--split-pos=2" "--oob" "--mss=88"];
+                  # params = ["--tlsrec=midsld" "--disorder" "--mss=88"];
+                  # params = ["--dpi-desync=multisplit" "--dpi-desync-split-pos=2" "--dpi-desync-split-seqovl=336" "--dpi-desync-split-seqovl-pattern=/nix/store/mb3bw63scwmq6b7cya1syb5179ciis4g-zapret-69.9/usr/share/zapret/files/fake/tls_clienthello_iana_org.bin"];
+		  # params = ["--dpn-desync=fake,multidisorder" "--dpi-desync-ttl=1" "--dpi-desync-autottl=2" "--dpi-desync-split-pos=1,midsld"];
+                };
               };
 
               users = {
@@ -116,8 +135,9 @@
               ];
 
               programs = {
-                yazi.enable = true;
+                # yazi.enable = true;
                 adb.enable = true;
+                direnv.enable = true;
                 git.enable = true;
                 waybar.enable = true;
                 nano.enable = false;
@@ -128,6 +148,8 @@
                     x = "sudo";
                     r = "yazi";
                     p = "python";
+                    us = "x nixos-rebuild switch";
+                    ub = "x nixos-rebuild boot";
                     dl = "yt-dlp -x -o '%(title)s.%(ext)s'";
                     dla = "yt-dlp -x --add-metadata -o '%(title)s.%(ext)s'";
                     um = "udisksctl mount -b /dev/sda1";
@@ -139,41 +161,6 @@
                 hyprland = {
                   enable = true;
                   xwayland.enable = false;
-                };
-                nixvim = {
-                  enable = true;
-                  package = neovim-nightly-overlay.packages.${pkgs.system}.default;
-                  defaultEditor = true;
-                  viAlias = true;
-                  clipboard.register = "unnamedplus";
-                  plugins = {
-                    mini = {
-                      enable = true;
-                      modules = {
-                        basics.enable = true;
-                        statusline.enable = true;
-                        pairs.enable = true;
-                      };
-                    };
-                    lsp = {
-                      enable = true;
-                      servers.nixd.enable = true;
-                      keymaps.lspBuf = {
-                        " f" = "format";
-                      };
-                    };
-                    treesitter = {
-                      enable = true;
-                      settings.highlight.enable = true;
-                      grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
-                        nix
-                        python
-                        hyprlang
-                      ];
-                    };
-                    rainbow-delimiters.enable = true;
-                  };
-
                 };
               };
 
@@ -216,9 +203,10 @@
                   xdg-utils
                   # languages, programming utils
                   nixfmt-rfc-style
-                  # (python313.withPackages (p: with p; [ requests ]))
                   python313
+                  # other
                   rose-pine-cursor
+                  yazi
                 ];
               };
             }
