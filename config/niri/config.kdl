@@ -1,0 +1,111 @@
+spawn-at-startup "qbittorrent-nox" "-d"
+spawn-at-startup "waybar"
+spawn-at-startup "mako"
+spawn-at-startup "wlsunset" "-s" "20:00" "-S" "08:00" "-t" "3500"
+spawn-at-startup "swayidle" "-w" \
+            "timeout" "300" "niri msg action power-off-monitors" \
+            "timeout" "900" "systemctl suspend"
+
+hotkey-overlay { skip-at-startup; }
+prefer-no-csd
+screenshot-path null
+
+environment {
+    RADV_PERFTEST "video_decode"
+}
+
+cursor {
+    xcursor-theme "BreezeX-RosePine-Linux"
+    xcursor-size 24
+}
+
+input {
+    keyboard {
+        xkb {
+            layout "us,ru"
+            options "grp:rshift_toggle,lv3:caps_switch,lv5:ralt_switch"
+        }
+    }
+    touchpad {
+        tap
+        natural-scroll
+        accel-speed 1.0
+    }
+    mouse {
+        accel-speed 1.0
+    }
+    focus-follows-mouse max-scroll-amount="0%"
+}
+
+output "eDP-1" { background-color "black" ; }
+
+layout {
+    gaps 12
+    center-focused-column "always"
+    preset-column-widths {
+        proportion 0.95
+        proportion 0.5
+    }
+    default-column-width {
+        proportion 0.95
+    }
+    border {
+        width 1
+        active-color "slategray"
+    }
+    focus-ring { off ; };
+}
+
+window-rule {
+    geometry-corner-radius 12
+    clip-to-geometry true
+}
+
+binds {
+    ISO_Level5_Shift+Return { spawn "kitty" ; }
+
+    ISO_Level3_Shift+A { focus-column-left ; }
+    ISO_Level3_Shift+S { move-column-left ; }
+    ISO_Level3_Shift+D { move-column-right ; }
+    ISO_Level3_Shift+F { focus-column-right ; }
+
+    Super+C { spawn "kitty" "vi" ".config/niri/config.kdl" ; }
+    Super+S { spawn "fuzzel" ; }
+    Super+D { spawn "zen" ; }
+    Super+F { spawn "telegram-desktop" ; }
+    Super+Z {spawn "bitwarden" "--ozone-platform=wayland" ; }
+    Super+E { spawn "kitty" "yazi" ; }
+    Super+Shift+D { spawn "brave" ; }
+
+    ISO_Level3_Shift+R { switch-preset-column-width ; }
+    ISO_Level3_Shift+Q { close-window ; }
+    ISO_Level3_Shift+C { quit ; }
+    ISO_Level3_Shift+Z { spawn "systemctl" "poweroff" ; }
+    ISO_Level3_Shift+V { spawn "systemctl" "reboot" ; }
+    ISO_Level3_Shift+X { spawn "systemctl" "suspend"; }
+
+    // change binding
+    ISO_Level5_Shift+P { spawn "pavucontrol" ; }
+
+    ISO_Level5_Shift+M { power-off-monitors ; }
+    ISO_Level3_Shift+U { fullscreen-window ; }
+    ISO_Level3_Shift+T { toggle-window-floating ; }
+
+    Print { screenshot ; }
+    ISO_Level5_Shift+Print { screenshot-screen ; }
+    ISO_Level3_Shift+Print { screenshot-window ; }
+
+    F4 { spawn "brightnessctl" "set" "10%-" ; }
+    F5 { spawn "brightnessctl" "set" "10%+" ; }
+    F6 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ; }
+    F7 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ; }
+    F8 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ; }
+    F9 { spawn "playerctl" "play-pause" ; }
+    F11 { spawn "playerctl" "previous" ; }
+    F12 { spawn "playerctl" "next" ; }
+
+    // Set for headphones
+    XF86AudioPrev { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ;}
+    XF86AudioNext { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ; }
+    XF86AudioPlay { spawn "playerctl" "play-pause" ; }
+}

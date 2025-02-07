@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable/";
+    # nixpkgs.url = "github:NixOS/nixpkgs/89c1b0ebde249a6a28edb52d50195da1d3622690";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
@@ -11,9 +12,9 @@
       };
     };
     nixvim = {
-      url = "github:nix-community/nixvim";
+      url = "github:nix-community/nixvim/";
       inputs = {
-        nixpkgs.follows = "nixpkgs";
+        # nixpkgs.follows = "nixpkgs";
         devshell.follows = "";
         flake-compat.follows = "";
         git-hooks.follows = "";
@@ -41,12 +42,12 @@
           (
             { pkgs, ... }:
             {
-              imports = [ (import ./nixvim.nix { inherit pkgs neovim-nightly-overlay; }) ];
+              imports = [
+                (import ./nixvim.nix { inherit pkgs neovim-nightly-overlay; })
+              ];
               system.stateVersion = "25.05";
               system.rebuild.enableNg = true;
 
-              # services.userborn.enable = true;
-              # system.etc.overlay.enable = true;
               boot.initrd.systemd.enable = true;
 
               nix = {
@@ -101,7 +102,6 @@
                 udisks2.enable = true;
                 seatd.enable = true;
                 gvfs.enable = true;
-                hypridle.enable = true;
                 playerctld.enable = true;
                 resolved.enable = true;
                 zapret = {
@@ -112,11 +112,15 @@
                     "ytimg.com"
                     "youtu.be"
                   ];
-                  params = ["--dpi-desync=fake" "--dpi-desync-ttl=3" "--dpi-desync-autottl=2"];
+                  params = [
+                    "--dpi-desync=fake"
+                    "--dpi-desync-ttl=3"
+                    "--dpi-desync-autottl=2"
+                  ];
                   # params = [ "--split-pos=2" "--oob" "--mss=88"];
                   # params = ["--tlsrec=midsld" "--disorder" "--mss=88"];
                   # params = ["--dpi-desync=multisplit" "--dpi-desync-split-pos=2" "--dpi-desync-split-seqovl=336" "--dpi-desync-split-seqovl-pattern=/nix/store/mb3bw63scwmq6b7cya1syb5179ciis4g-zapret-69.9/usr/share/zapret/files/fake/tls_clienthello_iana_org.bin"];
-		  # params = ["--dpn-desync=fake,multidisorder" "--dpi-desync-ttl=1" "--dpi-desync-autottl=2" "--dpi-desync-split-pos=1,midsld"];
+                  # params = ["--dpn-desync=fake,multidisorder" "--dpi-desync-ttl=1" "--dpi-desync-autottl=2" "--dpi-desync-split-pos=1,midsld"];
                 };
               };
 
@@ -143,7 +147,7 @@
                 nano.enable = false;
                 fish = {
                   enable = true;
-                  loginShellInit = "test (tty) = /dev/tty1 ;and exec Hyprland";
+                  loginShellInit = "test (tty) = /dev/tty1 ;and exec niri";
                   shellAliases = {
                     x = "sudo";
                     r = "yazi";
@@ -162,6 +166,7 @@
                   enable = true;
                   xwayland.enable = false;
                 };
+		niri.enable = true;
               };
 
               environment = {
@@ -195,9 +200,8 @@
                   pavucontrol
                   fuzzel
                   mako
-                  hyprsunset
-                  hyprshade
-                  hyprshot
+		  wlsunset
+		  swayidle
                   brightnessctl
                   jmtpfs
                   xdg-utils

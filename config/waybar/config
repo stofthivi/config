@@ -1,16 +1,17 @@
 {
+  "position": "top",
   "layer": "top",
   "modules-left": [
-    "hyprland/workspaces",
+//    "niri/workspaces",
     "battery",
     "backlight",
     "memory",
     "cpu",
     "idle_inhibitor"
   ],
-  "modules-center": ["hyprland/window"],
+  "modules-center": ["niri/window"],
   "modules-right": [
-    "hyprland/language",
+    "niri/language",
     "network",
     "wireplumber",
     "clock",
@@ -33,6 +34,9 @@
     "format": "{percent}% {icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
+//  "niri/workspaces": {
+//    "current-only" : true
+//  },
   "battery": {
     "states": {
       "critical": 15

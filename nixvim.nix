@@ -45,14 +45,6 @@
         settings = {
           keymap = {
             preset = "enter";
-            "k" = [
-              "select_prev"
-              "fallback"
-            ];
-            "j" = [
-              "select_next"
-              "fallback"
-            ];
           };
         };
       };
