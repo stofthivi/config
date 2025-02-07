@@ -38,7 +38,7 @@
         modules = [
           nixvim.nixosModules.nixvim
           "${nixpkgs}/nixos/modules/profiles/minimal.nix"
-          ./hardware-configuration.nix
+          # ./hardware-configuration.nix
           (
             { pkgs, ... }:
             {
