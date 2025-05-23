@@ -1,8 +1,7 @@
-{ pkgs, neovim-nightly-overlay, ... }:
+{ pkgs, ... }:
 {
   programs.nixvim = {
     enable = true;
-    package = neovim-nightly-overlay.packages.${pkgs.system}.default;
     defaultEditor = true;
     viAlias = true;
     clipboard.register = "unnamedplus";
@@ -15,7 +14,6 @@
         modules = {
           basics.enable = true;
           statusline.enable = true;
-          # pairs.enable = true;
           # notify.enable = true;
         };
       };
@@ -27,7 +25,7 @@
           ruff.enable = true;
         };
         keymaps.lspBuf = {
-          "gf" = "format";
+          " f" = "format";
         };
       };
       treesitter = {
@@ -36,29 +34,17 @@
         grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           nix
           python
-          hyprlang
-	  norg
+          # norg
+          kdl
+          markdown
         ];
       };
-      blink-cmp = {
-        enable = true;
-        settings = {
-          keymap = {
-            preset = "enter";
-          };
-        };
-      };
-
       # non-configurable plugins
       rainbow-delimiters.enable = true;
       neorg.enable = true;
       lsp-lines.enable = true;
       notify.enable = true;
-      hardtime.enable = true;
-
-      # plugins for later
-      # noice.enable = true;
-      # leap.enable = true;
+      # hardtime.enable = true;
     };
   };
 }

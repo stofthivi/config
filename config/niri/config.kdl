@@ -1,7 +1,7 @@
 spawn-at-startup "qbittorrent-nox" "-d"
 spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-at-startup "wlsunset" "-s" "20:00" "-S" "08:00" "-t" "3500"
+spawn-at-startup "wlsunset" "-s" "21:00" "-S" "07:00" "-t" "4000"
 spawn-at-startup "swayidle" "-w" \
             "timeout" "300" "niri msg action power-off-monitors" \
             "timeout" "900" "systemctl suspend"
@@ -70,8 +70,8 @@ binds {
     ISO_Level3_Shift+F { focus-column-right ; }
 
     Super+C { spawn "kitty" "vi" ".config/niri/config.kdl" ; }
-    Super+S { spawn "fuzzel" ; }
-    Super+D { spawn "zen" ; }
+    Super+S { spawn "onagre" ; }
+    Super+D { spawn "zen-beta" ; }
     Super+F { spawn "telegram-desktop" ; }
     Super+Z {spawn "bitwarden" "--ozone-platform=wayland" ; }
     Super+E { spawn "kitty" "yazi" ; }
