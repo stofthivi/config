@@ -19,25 +19,23 @@
     {
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         modules = [
-          nixvim.nixosModules.nixvim
-          "${nixpkgs}/nixos/modules/profiles/minimal.nix"
           ./hardware-configuration.nix
+          "${nixpkgs}/nixos/modules/profiles/minimal.nix"
+          nixvim.nixosModules.nixvim
+          ./nixvim.nix
           (
             { pkgs, ... }:
             {
-              imports = [
-                (import ./nixvim.nix { inherit pkgs; })
-              ];
               system.stateVersion = "25.05";
               system.rebuild.enableNg = true;
 
               nix = {
+                optimise.automatic = true;
+                channel.enable = false;
                 settings.experimental-features = [
                   "nix-command"
                   "flakes"
                 ];
-                optimise.automatic = true;
-                channel.enable = false;
               };
 
               boot = {
@@ -53,19 +51,13 @@
               };
 
               hardware.bluetooth.enable = true;
-
               time.timeZone = "Asia/Yekaterinburg";
-
               networking = {
                 useDHCP = false;
                 wireless = {
                   iwd = {
                     enable = true;
-                    settings = {
-                      General = {
-                        EnableNetworkConfiguration = true;
-                      };
-                    };
+                    settings.General.EnableNetworkConfiguration = true;
                   };
                 };
               };
@@ -121,8 +113,11 @@
                     "smart-enter.yazi" = pkgs.yaziPlugins.smart-enter;
                   };
                   settings.keymap.manager.prepend_keymap = [
-                      {on = "l"; run = "plugin smart-enter";}
-                    ];
+                    {
+                      on = "l";
+                      run = "plugin smart-enter";
+                    }
+                  ];
                 };
                 niri.enable = true;
                 adb.enable = true;
@@ -139,7 +134,7 @@
                     us = "x nixos-rebuild switch";
                     ub = "x nixos-rebuild boot";
                     dl = "yt-dlp -x -o '%(title)s.%(ext)s'";
-                    dla = "yt-dlp -x --add-metadata -o '%(title)s.%(ext)s'";
+                    dla = "yt-dlp -x --add-metadata --embed-thumbnail -o '%(title)s.%(ext)s'";
                     um = "udisksctl mount -b /dev/sda1";
                     uu = "udisksctl unmount -b /dev/sda1";
                     pm = "jmtpfs ~/media";
@@ -188,6 +183,7 @@
                   # other
                   rose-pine-cursor
                   ffmpeg
+                  # zapret
                 ];
               };
             }

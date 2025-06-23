@@ -21,8 +21,8 @@
         enable = true;
         servers = {
           nixd.enable = true;
-          pyright.enable = true;
-          ruff.enable = true;
+          # pyright.enable = true;
+          # ruff.enable = true;
         };
         keymaps.lspBuf = {
           " f" = "format";
@@ -41,7 +41,7 @@
       };
       # non-configurable plugins
       rainbow-delimiters.enable = true;
-      neorg.enable = true;
+      # neorg.enable = true;
       lsp-lines.enable = true;
       notify.enable = true;
       # hardtime.enable = true;

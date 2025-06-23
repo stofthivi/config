@@ -43,11 +43,11 @@ layout {
     gaps 12
     center-focused-column "always"
     preset-column-widths {
-        proportion 0.95
+        proportion 0.97
         proportion 0.5
     }
     default-column-width {
-        proportion 0.95
+        proportion 0.97
     }
     border {
         width 1
@@ -72,7 +72,7 @@ binds {
     Super+C { spawn "kitty" "vi" ".config/niri/config.kdl" ; }
     Super+S { spawn "onagre" ; }
     Super+D { spawn "zen-beta" ; }
-    Super+F { spawn "telegram-desktop" ; }
+    Super+F { spawn "Telegram" ; }
     Super+Z {spawn "bitwarden" "--ozone-platform=wayland" ; }
     Super+E { spawn "kitty" "yazi" ; }
     Super+Shift+D { spawn "brave" ; }
