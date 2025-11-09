@@ -7,6 +7,18 @@
     clipboard.register = "unnamedplus";
     colorschemes.nightfox.enable = true;
     colorschemes.nightfox.flavor = "carbonfox";
+    lsp = {
+      servers = {
+        nixd.enable = true;
+        # pyright.enable = true;
+      };
+      keymaps = [
+        {
+          key = " f";
+          lspBufAction = "format";
+        }
+      ];
+    };
     plugins = {
       # configurable plugins
       mini = {
@@ -14,18 +26,6 @@
         modules = {
           basics.enable = true;
           statusline.enable = true;
-          # notify.enable = true;
-        };
-      };
-      lsp = {
-        enable = true;
-        servers = {
-          nixd.enable = true;
-          # pyright.enable = true;
-          # ruff.enable = true;
-        };
-        keymaps.lspBuf = {
-          " f" = "format";
         };
       };
       treesitter = {
@@ -33,18 +33,16 @@
         settings.highlight.enable = true;
         grammarPackages = with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
           nix
-          python
-          # norg
+          # python
           kdl
           markdown
         ];
       };
       # non-configurable plugins
       rainbow-delimiters.enable = true;
-      # neorg.enable = true;
       lsp-lines.enable = true;
       notify.enable = true;
-      # hardtime.enable = true;
+      lspconfig.enable = true;
     };
   };
 }

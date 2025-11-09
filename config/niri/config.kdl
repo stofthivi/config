@@ -1,17 +1,19 @@
 spawn-at-startup "qbittorrent-nox" "-d"
-spawn-at-startup "waybar"
 spawn-at-startup "mako"
-spawn-at-startup "wlsunset" "-s" "21:00" "-S" "07:00" "-t" "4000"
+spawn-at-startup "sunsetr"
 spawn-at-startup "swayidle" "-w" \
             "timeout" "300" "niri msg action power-off-monitors" \
             "timeout" "900" "systemctl suspend"
 
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
+xwayland-satellite { off; }
 screenshot-path null
 
 environment {
     RADV_PERFTEST "video_decode"
+    QT_QPA_PLATFORM "wayland"
+    XDG_CURRENT_SESSION "gnome"
 }
 
 cursor {
@@ -73,8 +75,9 @@ binds {
     Super+S { spawn "onagre" ; }
     Super+D { spawn "zen-beta" ; }
     Super+F { spawn "Telegram" ; }
-    Super+Z {spawn "bitwarden" "--ozone-platform=wayland" ; }
+    Super+Z { spawn "keepassxc" ; }
     Super+E { spawn "kitty" "yazi" ; }
+    Super+Q { spawn "element-desktop" ; }
     Super+Shift+D { spawn "brave" ; }
 
     ISO_Level3_Shift+R { switch-preset-column-width ; }
@@ -97,6 +100,8 @@ binds {
 
     F4 { spawn "brightnessctl" "set" "10%-" ; }
     F5 { spawn "brightnessctl" "set" "10%+" ; }
+    // XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-" ; }
+    // XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ; }
     F6 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ; }
     F7 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ; }
     F8 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ; }
