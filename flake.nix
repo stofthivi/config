@@ -59,7 +59,7 @@
               hardware.bluetooth.enable = true;
               time.timeZone = "Asia/Yekaterinburg";
               # for wine
-              hardware.graphics.enable32Bit = true;
+              # hardware.graphics.enable32Bit = true;
 
               security = {
                 sudo-rs.enable = true;
@@ -82,8 +82,10 @@
               ];
 
               services = {
+                qbittorrent.enable = true;
                 dbus.implementation = "broker";
                 resolved.enable = true;
+		fstrim.enable = false;
                 udisks2.enable = true;
                 playerctld.enable = true;
                 gvfs.enable = true;
@@ -101,6 +103,21 @@
                     "--dpi-desync=fake"
                     "--dpi-desync-fooling=badsum"
                   ];
+
+                  # pixiv
+                  #   whitelist = [
+                  #     "pixiv.net"
+                  #     "www.pixiv.net"
+                  #   ];
+                  #   params = [
+                  #     "--dpi-desync=fake,fakeddisorder"
+                  #     "--dpi-desync-ttl=1"
+                  #     "--dpi-desync-autottl=-1"
+                  #     "--orig-ttl=1"
+                  #     "--orig-mod-start=s1"
+                  #     "--orig-mod-cutoff=d1"
+                  #     "--dpi-desync-split-pos=1"
+                  #   ];
                 };
               };
 
@@ -143,8 +160,8 @@
                 systemPackages = with pkgs; [
                   # main programs
                   zen-browser.packages."${system}".default
-                  brave
                   telegram-desktop
+		  # ungoogled-chromium
                   (mpv.override { scripts = [ mpvScripts.mpris ]; })
                   keepassxc
                   kitty
@@ -174,13 +191,13 @@
                   # languages, programming utils
                   python3
                   julia
+                  nixd
                   nixfmt-rfc-style
                   # other
                   rose-pine-cursor
                   ffmpeg
                   element-desktop
-                  wineWow64Packages.staging
-                  qbittorrent-nox
+                  zapret
                 ];
               };
             }

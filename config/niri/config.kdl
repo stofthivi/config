@@ -1,19 +1,19 @@
-spawn-at-startup "qbittorrent-nox" "-d"
 spawn-at-startup "mako"
 spawn-at-startup "sunsetr"
 spawn-at-startup "swayidle" "-w" \
             "timeout" "300" "niri msg action power-off-monitors" \
             "timeout" "900" "systemctl suspend"
 
+xwayland-satellite { off; }
 hotkey-overlay { skip-at-startup; }
 prefer-no-csd
-xwayland-satellite { off; }
 screenshot-path null
 
 environment {
     RADV_PERFTEST "video_decode"
+    // why is this used?
     QT_QPA_PLATFORM "wayland"
-    XDG_CURRENT_SESSION "gnome"
+    // XDG_CURRENT_SESSION "gnome"
 }
 
 cursor {
@@ -39,7 +39,7 @@ input {
     focus-follows-mouse max-scroll-amount="0%"
 }
 
-output "eDP-1" { background-color "black" ; }
+output "eDP-1" { layout; background-color "black"; }
 
 layout {
     gaps 12
@@ -55,7 +55,7 @@ layout {
         width 1
         active-color "slategray"
     }
-    focus-ring { off ; };
+    focus-ring { off; }
 }
 
 window-rule {
@@ -64,53 +64,53 @@ window-rule {
 }
 
 binds {
-    ISO_Level5_Shift+Return { spawn "kitty" ; }
+    ISO_Level5_Shift+Return { spawn "kitty"; }
 
-    ISO_Level3_Shift+A { focus-column-left ; }
-    ISO_Level3_Shift+S { move-column-left ; }
-    ISO_Level3_Shift+D { move-column-right ; }
-    ISO_Level3_Shift+F { focus-column-right ; }
+    ISO_Level3_Shift+A { focus-column-left; }
+    ISO_Level3_Shift+S { move-column-left; }
+    ISO_Level3_Shift+D { move-column-right; }
+    ISO_Level3_Shift+F { focus-column-right; }
 
-    Super+C { spawn "kitty" "vi" ".config/niri/config.kdl" ; }
-    Super+S { spawn "onagre" ; }
-    Super+D { spawn "zen-beta" ; }
-    Super+F { spawn "Telegram" ; }
-    Super+Z { spawn "keepassxc" ; }
-    Super+E { spawn "kitty" "yazi" ; }
-    Super+Q { spawn "element-desktop" ; }
-    Super+Shift+D { spawn "brave" ; }
+    Super+C { spawn "kitty" "vi" ".config/niri/config.kdl"; }
+    Super+S { spawn "onagre"; }
+    Super+D { spawn "zen-beta"; }
+    Super+F { spawn "Telegram"; }
+    Super+Z { spawn "keepassxc"; }
+    Super+E { spawn "kitty" "yazi"; }
+    Super+Q { spawn "element-desktop"; }
+    Super+Shift+D { spawn "brave"; }
 
-    ISO_Level3_Shift+R { switch-preset-column-width ; }
-    ISO_Level3_Shift+Q { close-window ; }
-    ISO_Level3_Shift+C { quit ; }
-    ISO_Level3_Shift+Z { spawn "systemctl" "poweroff" ; }
+    ISO_Level3_Shift+R { switch-preset-column-width; }
+    ISO_Level3_Shift+Q { close-window; }
+    ISO_Level3_Shift+C { quit; }
+    ISO_Level3_Shift+Z { spawn "systemctl" "poweroff"; }
     ISO_Level3_Shift+V { spawn "systemctl" "reboot" ; }
     ISO_Level3_Shift+X { spawn "systemctl" "suspend"; }
 
     // change binding
-    ISO_Level5_Shift+P { spawn "pavucontrol" ; }
+    ISO_Level5_Shift+P { spawn "pavucontrol"; }
 
-    ISO_Level5_Shift+M { power-off-monitors ; }
-    ISO_Level3_Shift+U { fullscreen-window ; }
-    ISO_Level3_Shift+T { toggle-window-floating ; }
+    ISO_Level5_Shift+M { power-off-monitors; }
+    ISO_Level3_Shift+U { fullscreen-window; }
+    ISO_Level3_Shift+T { toggle-window-floating; }
 
-    Print { screenshot ; }
-    ISO_Level5_Shift+Print { screenshot-screen ; }
-    ISO_Level3_Shift+Print { screenshot-window ; }
+    Print { screenshot; }
+    ISO_Level5_Shift+Print { screenshot-screen; }
+    ISO_Level3_Shift+Print { screenshot-window; }
 
-    F4 { spawn "brightnessctl" "set" "10%-" ; }
-    F5 { spawn "brightnessctl" "set" "10%+" ; }
-    // XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-" ; }
-    // XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ; }
-    F6 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ; }
-    F7 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ; }
-    F8 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ; }
-    F9 { spawn "playerctl" "play-pause" ; }
-    F11 { spawn "playerctl" "previous" ; }
-    F12 { spawn "playerctl" "next" ; }
+    F4 { spawn "brightnessctl" "set" "10%-"; }
+    F5 { spawn "brightnessctl" "set" "10%+"; }
+    // XF86MonBrightnessDown { spawn "brightnessctl" "set" "10%-"; }
+    // XF86MonBrightnessUp { spawn "brightnessctl" "set" "10%+" ;}
+    F6 { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
+    F7 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-"; }
+    F8 { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    F9 { spawn "playerctl" "play-pause"; }
+    F11 { spawn "playerctl" "previous"; }
+    F12 { spawn "playerctl" "next"; }
 
     // Set for headphones
-    XF86AudioPrev { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ;}
-    XF86AudioNext { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ; }
-    XF86AudioPlay { spawn "playerctl" "play-pause" ; }
+    XF86AudioPrev { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-";}
+    XF86AudioNext { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+"; }
+    XF86AudioPlay { spawn "playerctl" "play-pause"; }
 }

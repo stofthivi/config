@@ -4,15 +4,24 @@
   boot.initrd.availableKernelModules = [ "nvme" ];
   fileSystems = {
     "/" = {
-      device = "/dev/disk/by-uuid/70dd1295-4558-4690-a27f-6fe41f515c8b";
-      fsType = "xfs";
+      device = "/dev/nvme0n1p2";
+      fsType = "ext4";
+      options = [
+        "noatime"
+        "discard=async"
+        "commit=120"
+        "errors=remount-ro"
+      ];
     };
     "/boot" = {
-      device = "/dev/disk/by-uuid/39E2-C4F5";
+      device = "/dev/nvme0n1p1";
       fsType = "vfat";
       options = [
-        "fmask=0077"
-        "dmask=0077"
+        "defaults"
+        "noatime"
+        "utf8"
+        "shortname=winnt"
+        "flush"
       ];
     };
   };
