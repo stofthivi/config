@@ -37,6 +37,31 @@
               };
               boot = {
                 kernelPackages = pkgs.linuxPackages_latest;
+                kernelParams = [
+                  "quiet"
+                  "loglevel=3"
+                  "kernel.printk=3"
+		  "rd.systemd.show_status=auto"
+
+                  "nmi_watchdog=0"
+                  "nowatchdog"
+
+                  "amd_pstate=active"
+                  "amd_pstate.shared_mem=1"
+
+                  "amd_iommu=on"
+                  "iommu=pt"
+
+                  "nvme.noacpi=1"
+                  "nvme.use_threaded_interrupts=1"
+
+                  "psi=1"
+		  "pcie_aspm=force"
+		  "amdgpu.sg_display=0"
+
+                  "mitigations=auto"
+                  "spec_store_bypass_disable=auto"
+                ];
                 loader = {
                   timeout = 3;
                   limine = {
@@ -82,11 +107,10 @@
               ];
 
               services = {
-                qbittorrent.enable = true;
                 dbus.implementation = "broker";
                 resolved.enable = true;
-		fstrim.enable = false;
                 udisks2.enable = true;
+		tlp.enable = true;
                 playerctld.enable = true;
                 gvfs.enable = true;
                 pipewire.pulse.enable = true;
@@ -161,7 +185,8 @@
                   # main programs
                   zen-browser.packages."${system}".default
                   telegram-desktop
-		  # ungoogled-chromium
+                  qbittorrent-nox
+                  # ungoogled-chromium
                   (mpv.override { scripts = [ mpvScripts.mpris ]; })
                   keepassxc
                   kitty
