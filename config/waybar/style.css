@@ -1,35 +1,7 @@
-@import "colors.css";
-
 #waybar {
-  background-color: @black;
-  color: @white;
-  border-bottom: 2px solid @border;
-}
-
-button {
-  border: none;
-  border-radius: 0px;
-}
-
-
-#workspaces button {
-  padding: 0px 5px;
-  color: @white;
-  border-bottom: 2px solid @border_workspaces;
-}
-
-#workspaces button:hover {
-  background: rgba(127, 127, 127, 0.3);
-  border-bottom: 2px solid @border_selected;
-}
-
-#workspaces button.active {
-  background-color: rgba(0, 170, 170, 0.75);
-  border-color: @white;
-}
-
-#workspaces button.urgent {
-  color: @red;
+  background-color: black;
+  color: white;
+  border-bottom: 1px solid darkslategrey;
 }
 
 #idle_inhibitor {
@@ -49,55 +21,55 @@ button {
 }
 
 #battery {
-  color: @red;
+  color: crimson;
 }
 
 #battery.charging,
 #battery.plugged,
 #battery.full {
-  color: @green;
+  color: lawngreen;
 }
 
 #backlight {
-  color: @magenta;
+  color: lightpink;
 }
 
 #memory {
-  color: @blue;
+  color: deepskyblue;
 }
 
 #cpu {
-  color: @orange;
+  color: lightsalmon;
 }
 
 #idle_inhibitor {
-  color: @grey2;
+  color: darkgrey;
 }
 
 #language {
-  color: @cyan;
+  color: deeppink;
 }
 
 #network {
-  color: @purple;
+  color: paleturquoise;
 }
 
 #network.disconnected {
-  color: @red;
+  color: crimson;
 }
 
 #wireplumber {
-  color: @yellow;
+  color: gold;
 }
 
 #wireplumber.muted {
-  color: @grey;
+  color: grey;
 }
 
 #clock {
-  color: @green_dark;
+  color: springgreen;
 }
 
 #tray {
-  border-bottom: 2px solid #7030af;
+  border-bottom: 1px solid royalblue;
 }

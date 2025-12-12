@@ -2,7 +2,6 @@
   "position": "top",
   "layer": "top",
   "modules-left": [
-//    "niri/workspaces",
     "battery",
     "backlight",
     "memory",
@@ -34,9 +33,6 @@
     "format": "{percent}% {icon}",
     "format-icons": ["", "", "", "", "", "", "", "", ""]
   },
-//  "niri/workspaces": {
-//    "current-only" : true
-//  },
   "battery": {
     "states": {
       "critical": 15
