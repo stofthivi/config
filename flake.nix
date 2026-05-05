@@ -26,7 +26,7 @@
           (
             { pkgs, ... }:
             {
-              system.stateVersion = "25.11";
+              system.stateVersion = "26.05";
               nix = {
                 optimise.automatic = true;
                 channel.enable = false;
@@ -35,13 +35,14 @@
                   "flakes"
                 ];
               };
+
               boot = {
                 kernelPackages = pkgs.linuxPackages_latest;
                 kernelParams = [
                   "quiet"
                   "loglevel=3"
                   "kernel.printk=3"
-		  "rd.systemd.show_status=auto"
+                  "rd.systemd.show_status=auto"
 
                   "nmi_watchdog=0"
                   "nowatchdog"
@@ -56,8 +57,8 @@
                   "nvme.use_threaded_interrupts=1"
 
                   "psi=1"
-		  "pcie_aspm=force"
-		  "amdgpu.sg_display=0"
+                  "pcie_aspm=force"
+                  "amdgpu.sg_display=0"
 
                   "mitigations=auto"
                   "spec_store_bypass_disable=auto"
@@ -72,7 +73,7 @@
                 };
               };
               networking = {
-                useDHCP = false;
+                nftables.enable = true;
                 wireless = {
                   iwd = {
                     enable = true;
@@ -83,8 +84,6 @@
 
               hardware.bluetooth.enable = true;
               time.timeZone = "Asia/Yekaterinburg";
-              # for wine
-              # hardware.graphics.enable32Bit = true;
 
               security = {
                 sudo-rs.enable = true;
@@ -96,7 +95,9 @@
                 defaultUserShell = pkgs.fish;
                 users.kei = {
                   isNormalUser = true;
-                  extraGroups = [ "wheel" ];
+                  extraGroups = [
+                    "wheel"
+                  ];
                 };
               };
 
@@ -110,57 +111,28 @@
                 dbus.implementation = "broker";
                 resolved.enable = true;
                 udisks2.enable = true;
-		tlp.enable = true;
+                tlp.enable = true;
                 playerctld.enable = true;
                 gvfs.enable = true;
                 pipewire.pulse.enable = true;
-                zapret = {
-                  enable = true;
-                  # yt
-                  whitelist = [
-                    "youtube.com"
-                    "googlevideo.com"
-                    "ytimg.com"
-                    "youtu.be"
-                  ];
-                  params = [
-                    "--dpi-desync=fake"
-                    "--dpi-desync-fooling=badsum"
-                  ];
-
-                  # pixiv
-                  #   whitelist = [
-                  #     "pixiv.net"
-                  #     "www.pixiv.net"
-                  #   ];
-                  #   params = [
-                  #     "--dpi-desync=fake,fakeddisorder"
-                  #     "--dpi-desync-ttl=1"
-                  #     "--dpi-desync-autottl=-1"
-                  #     "--orig-ttl=1"
-                  #     "--orig-mod-start=s1"
-                  #     "--orig-mod-cutoff=d1"
-                  #     "--dpi-desync-split-pos=1"
-                  #   ];
-                };
               };
 
               programs = {
                 niri.enable = true;
+                amnezia-vpn.enable = true;
                 waybar.enable = true;
                 git.enable = true;
-                adb.enable = true;
                 nano.enable = false;
-                yazi = {
-                  enable = true;
-                  plugins."smart-enter.yazi" = pkgs.yaziPlugins.smart-enter;
-                  settings.keymap.manager.prepend_keymap = [
-                    {
-                      on = "l";
-                      run = "plugin smart-enter";
-                    }
-                  ];
-                };
+                # yazi = {
+                #   enable = true;
+                #   plugins."smart-enter" = pkgs.yaziPlugins.smart-enter;
+                #   settings.keymap.manager.prepend_keymap = [
+                #     {
+                #       on = "l";
+                #       run = "plugin smart-enter";
+                #     }
+                #   ];
+                # };
                 fish = {
                   enable = true;
                   shellAliases = {
@@ -176,7 +148,13 @@
                     uu = "udisksctl unmount -b /dev/sda1";
                     pm = "jmtpfs ~/media";
                     pu = "fusermount -u ~/media";
+                    playrev = "mpv --play-direction=-";
                   };
+                  interactiveShellInit = ''
+                    function arev --argument input output
+                      ffmpeg -i "$input" -af areverse "$output"
+                    end
+                  '';
                 };
               };
 
@@ -186,12 +164,11 @@
                   zen-browser.packages."${system}".default
                   telegram-desktop
                   qbittorrent-nox
-                  # ungoogled-chromium
                   (mpv.override { scripts = [ mpvScripts.mpris ]; })
                   keepassxc
                   kitty
                   zathura
-                  oculante
+                  imv
                   libreoffice-fresh
                   hunspell
                   hunspellDicts.ru-ru
@@ -217,12 +194,12 @@
                   python3
                   julia
                   nixd
-                  nixfmt-rfc-style
+                  nixfmt
                   # other
                   rose-pine-cursor
                   ffmpeg
-                  element-desktop
-                  zapret
+                  yazi
+                  gimp
                 ];
               };
             }
